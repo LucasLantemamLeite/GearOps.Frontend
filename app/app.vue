@@ -15,8 +15,16 @@ html {
 }
 
 body {
-  position: relative;
-  width: 100vw;
   height: auto;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+
+#__nuxt {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 </style>
