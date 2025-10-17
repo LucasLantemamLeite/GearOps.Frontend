@@ -1,13 +1,13 @@
 <template>
-  <section class="footer-layout__background">
+  <section class="media-layout__background">
     <a href="https://www.linkedin.com/in/lucas-lantemam-leite-200bb8243/" target="_blank">
-      <ImageComponent static-img="/Icons/LinkedinIcon.svg" alt-img="Linkedin Icon" class="footer-layout__social-icons" />
+      <ImageComponent static-img="/Icons/LinkedinIcon.svg" alt-img="Linkedin Icon" class="media-layout__social-icons" />
     </a>
     <a href="https://www.instagram.com/lucaslantemaml?igsh=MWs1OGd2NmszcGs3bQ==" target="_blank">
-      <ImageComponent static-img="/Icons/InstagramIcon.svg" alt-img="Instagram Icon" class="footer-layout__social-icons" />
+      <ImageComponent static-img="/Icons/InstagramIcon.svg" alt-img="Instagram Icon" class="media-layout__social-icons" />
     </a>
     <a href="https://github.com/LucasLantemamLeite" target="_blank">
-      <ImageComponent static-img="/Icons/GitHubIcon.svg" alt-img="GitHub Icon" class="footer-layout__social-icons" />
+      <ImageComponent static-img="/Icons/GitHubIcon.svg" alt-img="GitHub Icon" class="media-layout__social-icons" />
     </a>
   </section>
 </template>
@@ -15,7 +15,7 @@
 <script setup lang="ts"></script>
 
 <style lang="scss">
-.footer-layout {
+.media-layout {
   &__background {
     display: flex;
     position: fixed;

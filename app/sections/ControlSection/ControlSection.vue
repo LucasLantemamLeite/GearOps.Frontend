@@ -1,13 +1,13 @@
 <template>
-  <section class="filter-layout__background">
-    <InputComponent placeholder="Buscar..." class="filter-layout__search" />
+  <section class="control-section__background">
+    <InputComponent placeholder="Buscar..." class="control-section__search" />
   </section>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="scss">
-.filter-layout {
+.control-section {
   &__background {
     display: flex;
     align-items: center;
