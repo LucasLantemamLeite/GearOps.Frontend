@@ -1,5 +1,6 @@
 <template>
   <FooterLayout />
+  <Title>DashBoard</Title>
 </template>
 
 <script setup lang="ts">
