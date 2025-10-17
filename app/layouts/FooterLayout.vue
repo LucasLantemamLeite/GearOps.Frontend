@@ -18,16 +18,21 @@
 .footer-layout {
   &__background {
     display: flex;
+    position: fixed;
     gap: 1rem;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    width: 100vw;
+    height: clamp(2rem, 12vw, 5rem);
     left: 0;
     top: 0;
     background-color: rgb(36, 36, 36);
-    width: 100%;
     padding: 1rem;
     box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.6);
+
+    & a {
+      display: inline-flex;
+    }
   }
 
   &__social-icons {
