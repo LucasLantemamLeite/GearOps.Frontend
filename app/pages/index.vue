@@ -2,15 +2,15 @@
   <Title>DashBoard</Title>
 
   <section class="index__delimiter">
-    <ControlSection />
+    <ControlBlock />
   </section>
 
   <MediaLayout />
 </template>
 
 <script setup lang="ts">
+import ControlBlock from "~/blocks/ControlBlock/ControlBlock.vue";
 import MediaLayout from "~/layouts/MediaLayout.vue";
-import ControlSection from "~/sections/ControlSection/ControlSection.vue";
 </script>
 
 <style lang="scss">
