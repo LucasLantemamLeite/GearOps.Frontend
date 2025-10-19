@@ -1,7 +1,7 @@
 <template>
   <Title>DashBoard</Title>
 
-  <section class="w-[95%]">
+  <section class="flex flex-col items-center gap-4 w-[95%]">
     <ControlBlock />
     <DevicesBlock />
   </section>
