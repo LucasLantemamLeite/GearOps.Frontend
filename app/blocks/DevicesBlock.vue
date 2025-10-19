@@ -17,6 +17,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import { createdConnect } from "~/services/signalR/CreatedConnect";
 import { deletedConnect } from "~/services/signalR/DeletedConnect";
 import { updatedConnect } from "~/services/signalR/UpdatedConnect";
+import { setNotification } from "~/global/Notification";
 
 onMounted(async () => {
   await getDevicesService();
@@ -28,7 +29,11 @@ onMounted(async () => {
   deletedConnect(connection);
   updatedConnect(connection);
 
-  connection.start();
+  try {
+    connection.start();
+  } catch {
+    setNotification("Erro ao tentar se conectar no signalR, tempo real desativado.", 5, "Warning");
+  }
 });
 
 function getImageByType(type: number): string {
