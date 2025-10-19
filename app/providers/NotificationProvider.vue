@@ -1,10 +1,10 @@
 <template>
-  <div v-if="notification.message != ''" class="flex fixed w-auto items-center px-8 py-4 gap-4 bg-[#272727] bottom-[6.5rem] right-[1rem] rounded-[0.9rem] pointer-events-none shadow-md">
+  <div v-if="notification.message != ''" class="flex fixed max-w-[30rem] h-auto justify-center items-center px-8 py-4 gap-4 bg-[#272727] bottom-[1rem] right-[1rem] rounded-[0.9rem] pointer-events-none shadow-md md:bottom-[6.5rem] md:max-w-[40rem] md:px-6 md:py-4">
     <div :style="{ backgroundColor: getColorByType(notification.type) }" class="absolute w-[1rem] h-full left-0 rounded-l-[0.5rem]"></div>
 
-    <ImageComponent :static-img="`/Icons/${notification.type}Icon.svg`" :alt-img="`${notification.type} Icon`" class="w-[5rem]" />
+    <ImageComponent :static-img="`/Icons/${notification.type}Icon.svg`" :alt-img="`${notification.type} Icon`" class="w-[3rem] md:w-[4rem]" />
 
-    <p class="text-white">{{ notification.message }}</p>
+    <p class="text-white text-center text-[1.2rem] md:text-[1.4rem]">{{ notification.message }}</p>
   </div>
 </template>
 
