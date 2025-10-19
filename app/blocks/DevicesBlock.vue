@@ -13,9 +13,21 @@
 <script setup lang="ts">
 import { getDevicesService } from "~/services/requests/GetDevicesService";
 import { Devices } from "~/global/Devices";
+import { HubConnectionBuilder } from "@microsoft/signalr";
+import { createdConnect } from "~/services/signalR/CreatedConnect";
+import { deletedConnect } from "~/services/signalR/DeletedConnect";
+import { updatedConnect } from "~/services/signalR/UpdatedConnect";
 
 onMounted(async () => {
   await getDevicesService();
+
+  var connection = new HubConnectionBuilder().withUrl("http://localhost:5059/v1/devicesHub").withAutomaticReconnect().build();
+
+  createdConnect(connection);
+  deletedConnect(connection);
+  updatedConnect(connection);
+
+  connection.start();
 });
 
 function getImageByType(type: number): string {
