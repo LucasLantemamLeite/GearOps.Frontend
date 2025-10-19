@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div v-for="device in GlobalDevices">
+    <div v-for="device in Devices">
       <p>{{ device.name }}</p>
     </div>
   </section>
@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { getDevicesService } from "~/services/requests/GetDevicesService";
-import { GlobalDevices } from "~/global/Devices";
+import { Devices } from "~/global/Devices";
 
 onMounted(async () => {
   await getDevicesService();
