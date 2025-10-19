@@ -1,3 +1,3 @@
 import type { DeviceType } from "~/types/DevicesType";
 
-export const Devices = ref<DeviceType[]>([]);
+export const GlobalDevices = ref<DeviceType[]>([]);
