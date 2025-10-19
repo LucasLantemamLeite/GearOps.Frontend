@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Alterar para permitir o teste via ip privado ao rodar no docker-compose
 const api = axios.create({ baseURL: "http://localhost:5059/v1", timeout: 5000 });
 
 export async function apiRequestAsync(path: string, method: string, timeout: number, data?: any) {

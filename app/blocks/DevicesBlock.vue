@@ -21,6 +21,7 @@ import { updatedConnect } from "~/services/signalR/UpdatedConnect";
 onMounted(async () => {
   await getDevicesService();
 
+  // Alterar para permitir o teste via ip privado ao rodar no docker-compose
   var connection = new HubConnectionBuilder().withUrl("http://localhost:5059/v1/devicesHub").withAutomaticReconnect().build();
 
   createdConnect(connection);
