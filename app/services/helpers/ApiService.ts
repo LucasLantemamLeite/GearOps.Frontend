@@ -16,7 +16,9 @@ export async function apiRequestAsync(path: string, method: string, timeout: num
     return response.data;
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
-      throw err.response?.data ?? "Erro desconhecido.";
+      const errMsg = Object.values(err.response?.data);
+
+      throw errMsg[0] ?? "Erro desconhecido.";
     } else {
       throw String(err);
     }
