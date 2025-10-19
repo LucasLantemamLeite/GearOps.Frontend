@@ -3,10 +3,12 @@
   <NuxtLayout />
 
   <LoadingProvider />
+  <NotificationProvider />
 </template>
 
 <script setup lang="ts">
 import LoadingProvider from "./providers/LoadingProvider.vue";
+import NotificationProvider from "./providers/NotificationProvider.vue";
 </script>
 
 <style lang="scss">
