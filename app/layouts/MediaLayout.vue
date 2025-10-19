@@ -1,58 +1,15 @@
 <template>
-  <section class="media-layout__background">
+  <section class="flex fixed gap-4 justify-center items-center w-full h-[5rem] left-0 top-0 bg-[#272727] p-4 shadow-md md:h-[6rem] md:top-[inherit] md:bottom-0 md:shadow-none">
     <a href="https://www.linkedin.com/in/lucas-lantemam-leite-200bb8243/" target="_blank">
-      <ImageComponent static-img="/Icons/LinkedinIcon.svg" alt-img="Linkedin Icon" class="media-layout__social-icons" />
+      <ImageComponent static-img="/Icons/LinkedinIcon.svg" alt-img="Linkedin Icon" class="w-[3rem] md:w-[4rem] md:transition-all md:hover:translate-y-[-3px]" />
     </a>
     <a href="https://www.instagram.com/lucaslantemaml?igsh=MWs1OGd2NmszcGs3bQ==" target="_blank">
-      <ImageComponent static-img="/Icons/InstagramIcon.svg" alt-img="Instagram Icon" class="media-layout__social-icons" />
+      <ImageComponent static-img="/Icons/InstagramIcon.svg" alt-img="Instagram Icon" class="w-[3rem] md:w-[4rem] md:transition-all md:hover:translate-y-[-3px]" />
     </a>
     <a href="https://github.com/LucasLantemamLeite" target="_blank">
-      <ImageComponent static-img="/Icons/GitHubIcon.svg" alt-img="GitHub Icon" class="media-layout__social-icons" />
+      <ImageComponent static-img="/Icons/GitHubIcon.svg" alt-img="GitHub Icon" class="w-[3rem] md:w-[4rem] md:transition-all md:hover:translate-y-[-3px]" />
     </a>
   </section>
 </template>
 
 <script setup lang="ts"></script>
-
-<style lang="scss">
-.media-layout {
-  &__background {
-    display: flex;
-    position: fixed;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: clamp(2rem, 12vw, 5rem);
-    left: 0;
-    top: 0;
-    background-color: rgb(36, 36, 36);
-    padding: 1rem;
-    box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.6);
-
-    & a {
-      display: inline-flex;
-    }
-  }
-
-  &__social-icons {
-    width: clamp(1rem, 8vw, 4rem);
-  }
-
-  @media (min-width: 1024px) {
-    &__background {
-      top: inherit;
-      bottom: 0;
-      box-shadow: none;
-    }
-
-    &__social-icons {
-      transition: all 200ms ease-in;
-
-      &:hover {
-        transform: translateY(-3px);
-      }
-    }
-  }
-}
-</style>
