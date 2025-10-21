@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="notification.message != ''"
-    class="flex fixed max-w-[25rem] h-auto max-h-[10rem] overflow-auto justify-center items-center px-8 py-4 gap-4 bg-[#272727] bottom-[1rem] right-[1rem] rounded-[0.9rem] pointer-events-none shadow-md md:bottom-[6.5rem] md:gap-8 md:max-w-[35rem] md:px-8 md:py-4 lg:max-w-[40rem]"
+    class="flex fixed max-w-[25rem] h-auto max-h-[10rem] overflow-auto justify-center items-center z-20 px-8 py-4 gap-4 bg-[#272727] bottom-[1rem] right-[1rem] rounded-[0.9rem] pointer-events-none shadow-md md:bottom-[6.5rem] md:gap-8 md:max-w-[35rem] md:px-8 md:py-4 lg:max-w-[40rem]"
   >
     <div :style="{ backgroundColor: getColorByType(notification.type) }" class="absolute w-[1rem] h-full left-0 rounded-l-[0.5rem]"></div>
 
