@@ -12,11 +12,17 @@
       <div class="flex items-center border-2 h-full border-[#272727] p-2 rounded-[0.9rem] shadow-md lg:cursor-pointer lg:hover:bg-[#c9c9c9] transition-all">
         <ImageComponent static-img="/Icons/FilterIcon.svg" alt-img="Filter Icon" class="w-[2rem] lg:w-[3rem]" />
       </div>
-      <div class="flex items-center border-2 h-full border-[#272727] p-2 rounded-[0.9rem] shadow-md lg:cursor-pointer lg:hover:bg-[#c9c9c9] transition-all">
+      <div @click="isCreating = true" class="flex items-center border-2 h-full border-[#272727] p-2 rounded-[0.9rem] shadow-md lg:cursor-pointer lg:hover:bg-[#c9c9c9] transition-all">
         <ImageComponent static-img="/Icons/AddIcon.svg" alt-img="add Icon" class="w-[2rem] lg:w-[3rem]" />
       </div>
     </div>
   </section>
+
+  <DeviceModelBlock v-model="isCreating" :device="null" />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DeviceModelBlock from "./DeviceModelBlock.vue";
+
+const isCreating = ref(false);
+</script>
