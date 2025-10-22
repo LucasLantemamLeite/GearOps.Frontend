@@ -1,5 +1,5 @@
 <template>
-  <input @input="updateModelValue" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue ?? ''" :placeholder="placeholder" />
+  <input @input="updateModelValue" :maxlength="maxLenght" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue ?? ''" :placeholder="placeholder" />
 </template>
 
 <script setup lang="ts">
@@ -9,6 +9,7 @@ const props = defineProps<{
   modelValue?: string | number;
   placeholder?: string;
   type?: string;
+  maxLenght?: string;
 }>();
 
 const emit = defineEmits<{
