@@ -5,7 +5,7 @@ export interface Device {
   status: number;
   createdAt: Date;
   updatedAt: Date;
-  start?: Date;
-  return?: Date;
+  start?: Date | string;
+  return?: Date | string;
   active: Boolean;
 }
