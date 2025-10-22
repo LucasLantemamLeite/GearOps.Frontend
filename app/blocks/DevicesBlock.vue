@@ -1,6 +1,6 @@
 <template>
   <section v-if="Devices.length != 0" class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] w-full h-auto items-center p-4 gap-4 mb-8 rounded-[0.9rem] border-2 border-[#272727] shadow-md md:mb-[7rem]">
-    <div v-for="device in Devices" @click="openEdit(device)" class="flex relative w-full h-[20rem] items-center justify-center p-4 flex-col bg-[#272727] text-[white] text-[1.5rem] rounded-[0.9rem] cursor-pointer shadow-md md:transition-all md:hover:translate-y-[3px]">
+    <div v-for="device in Devices" @click="openEdit(device)" class="flex relative w-full h-[20rem] items-center justify-center p-4 flex-col bg-[#272727] text-[white] text-[1.5rem] rounded-[0.9rem] lg:cursor-pointer shadow-md md:transition-all md:hover:translate-y-[3px]">
       <div :style="{ backgroundColor: getColorByStatus(device.status) }" class="flex absolute w-full h-[1rem] top-0 rounded-t-[0.5rem]"></div>
 
       <ImageComponent :static-img="`/Images/${getImageByType(device.type)}.png`" :alt-img="`${getImageByType(device.type)} Image`" class="w-[9rem] mb-10 md:w-[10rem]" />
@@ -11,7 +11,7 @@
     </div>
   </section>
 
-  <DeviceModelBlock :device="deviceEdit!" v-model="isEditing" />
+  <DeviceModelBlock :device="editForm.deviceEdit!" v-model="editForm.isEditing" />
 </template>
 
 <script setup lang="ts">
@@ -25,8 +25,10 @@ import { setNotification } from "~/global/Notification";
 import type { Device } from "~/types/Device";
 import DeviceModelBlock from "./DeviceModelBlock.vue";
 
-const isEditing = ref(false);
-const deviceEdit = ref<Device>();
+const editForm = reactive({
+  deviceEdit: {},
+  isEditing: false,
+} as { deviceEdit: Device; isEditing: boolean });
 
 onMounted(async () => {
   await getDevicesService();
@@ -46,7 +48,7 @@ onMounted(async () => {
 });
 
 function openEdit(device: Device) {
-  deviceEdit.value = device; // passa a máquina clicada
-  isEditing.value = true; // abre o modal
+  editForm.deviceEdit = device;
+  editForm.isEditing = true;
 }
 </script>
