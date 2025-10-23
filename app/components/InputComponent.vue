@@ -1,5 +1,5 @@
 <template>
-  <input @input="updateModelValue" :maxlength="maxLenght" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue ?? ''" :placeholder="placeholder" />
+  <input @input="updateModelValue" :maxlength="maxLenght" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue ?? ''" :placeholder="placeholder" autocomplete="off" />
 </template>
 
 <script setup lang="ts">
