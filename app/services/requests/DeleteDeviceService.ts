@@ -1,6 +1,6 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { setNotification } from "~/shared/Notification";
-import { apiRequestAsync } from "../helpers/ApiService";
+import { apiRequestAsync } from "../base/ApiService";
 
 export async function deleteDeviceService(id: string, closeModal: () => void) {
   if (!id) setNotification("Falha ao capturar o id do dispositivo.", 7, "Info");

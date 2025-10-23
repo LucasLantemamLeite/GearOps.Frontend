@@ -1,5 +1,5 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
-import { apiRequestAsync } from "../helpers/ApiService";
+import { apiRequestAsync } from "../base/ApiService";
 import { setNotification } from "~/shared/Notification";
 
 export async function createDeviceService(e: Event, closeModal: () => void) {

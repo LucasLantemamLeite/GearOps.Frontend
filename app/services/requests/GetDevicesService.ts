@@ -1,5 +1,5 @@
 import { Devices } from "~/shared/Devices";
-import { apiRequestAsync } from "../helpers/ApiService";
+import { apiRequestAsync } from "../base/ApiService";
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { setNotification } from "~/shared/Notification";
 
