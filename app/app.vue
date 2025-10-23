@@ -23,7 +23,6 @@ html {
 }
 
 body {
-  height: auto;
   font-size: 1.6rem;
   line-height: 1.4;
   font-weight: bold;
