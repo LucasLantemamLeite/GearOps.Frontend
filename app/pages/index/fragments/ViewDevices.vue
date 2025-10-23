@@ -23,7 +23,7 @@ import { deletedConnect } from "~/services/signalR/DeletedConnect";
 import { updatedConnect } from "~/services/signalR/UpdatedConnect";
 import { setNotification } from "~/shared/Notification";
 import type { Device } from "~/types/Device";
-import DeviceModelBlock from "./DeviceModelBlock.vue";
+import DeviceModelBlock from "./DeviceModal.vue";
 
 const editForm = reactive({
   deviceEdit: {},

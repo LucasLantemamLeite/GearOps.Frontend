@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import type { Device } from "~/types/Device";
-import DevicePreviewBlock from "./DevicePreviewBlock.vue";
+import DevicePreviewBlock from "./DevicePreview.vue";
 import { DeviceType } from "~/types/DeviceType";
 import { DeviceStatus } from "~/types/DeviceStatus";
 import { createDeviceService } from "~/services/requests/CreateDeviceService";

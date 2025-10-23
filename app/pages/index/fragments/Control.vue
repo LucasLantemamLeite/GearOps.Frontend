@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import DeviceModelBlock from "./DeviceModelBlock.vue";
+import DeviceModelBlock from "./DeviceModal.vue";
 
 const isCreating = ref(false);
 </script>
