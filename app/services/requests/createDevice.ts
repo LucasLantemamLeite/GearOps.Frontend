@@ -18,7 +18,7 @@ export async function createDevice(e: Event, closeModal: () => void) {
     type: Number(payload.type),
     status: Number(payload.status),
     start: payload.start ? new Date(payload.start + ":00").toISOString() : null,
-    return: payload.start ? new Date(payload.return + ":00").toISOString() : null,
+    return: payload.return ? new Date(payload.return + ":00").toISOString() : null,
   };
 
   try {
