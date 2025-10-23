@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="(e) => device === null ? createDevice(e, closeModal) : updateDevice(e, device!.id, closeModal)" class="flex items-center flex-col w-[90%] gap-4">
+  <form @submit.prevent="(e) => (device === null ? createDevice(e, closeModal) : updateDevice(e, localDevice.id, closeModal))" class="flex flex-col w-[90%] gap-4 items-center">
     <DevicePreview :preview-device="preview" />
 
     <div class="flex flex-col gap-1 w-full">
@@ -18,10 +18,10 @@
     </div>
 
     <div class="flex flex-col gap-1 w-full">
-      <label for="start">Inicio:</label>
+      <label for="start">Início:</label>
       <InputComponent
         :style="preview.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
-        :value="formateDateISO(startDate)"
+        :value="formateDateISO(localDevice.start)"
         :disabled="preview.status !== 3"
         name="start"
         id="start"
@@ -34,7 +34,7 @@
       <label for="return">Retorno:</label>
       <InputComponent
         :style="preview.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
-        :value="formateDateISO(device?.return)"
+        :value="formateDateISO(localDevice.return)"
         :disabled="preview.status !== 3"
         name="return"
         id="return"
@@ -44,11 +44,11 @@
     </div>
 
     <div class="flex h-[5rem] justify-center items-center w-full gap-4 md:mb-4">
-      <ButtonComponent type="submit" class="w-[70%] h-[80%] p-2 my-4 border-[#272727] border-2 rounded-[0.9rem] shadow-md active:shadow-sm active:translate-x-[2px] active:translate-y-[2px] transition-all lg:hover:bg-[#c9c9c9] lg:cursor-pointer">{{
-        device === null ? "Criar" : "Atualizar"
-      }}</ButtonComponent>
+      <ButtonComponent type="submit" class="w-[70%] h-[80%] p-2 my-4 border-[#272727] border-2 rounded-[0.9rem] shadow-md active:shadow-sm active:translate-x-[2px] active:translate-y-[2px] transition-all lg:hover:bg-[#c9c9c9] lg:cursor-pointer">
+        {{ device === null ? "Criar" : "Atualizar" }}
+      </ButtonComponent>
 
-      <div @click="deleteDevice(device.id, closeModal)" v-if="device" class="flex h-[80%] p-1 border-2 rounded-[0.9rem] border-[#272727] lg:hover:cursor-pointer lg:transition-all lg:hover:bg-[#c9c9c9]">
+      <div @click="deleteDevice(localDevice.id, closeModal)" v-if="device" class="flex h-[80%] p-1 border-2 rounded-[0.9rem] border-[#272727] lg:hover:cursor-pointer lg:transition-all lg:hover:bg-[#c9c9c9]">
         <ImageComponent static-img="/Icons/TrashIcon.svg" alt-img="Trash Icon" class="w-[3rem]" />
       </div>
     </div>
@@ -64,6 +64,12 @@ import { deleteDevice } from "~/services/requests/deleteDevice";
 import { createDevice } from "~/services/requests/createDevice";
 import { updateDevice } from "~/services/requests/updateDevice";
 import { formateDateISO } from "~/utils/forms/formateDateISO";
+import { reactive, watch } from "vue";
+
+const props = defineProps<{
+  device: Device | null;
+  closeModal: () => void;
+}>();
 
 const preview = reactive({
   name: "",
@@ -71,15 +77,10 @@ const preview = reactive({
   status: 1,
 });
 
-const props = defineProps<{
-  device: Device | null;
-  closeModal: () => void;
-}>();
-
-const startDate = computed(() => {
-  if (!props.device && preview.status === 3) return Date.now();
-
-  return props.device?.start;
+const localDevice = reactive<Device>({
+  ...(props.device ?? ({} as Device)),
+  start: props.device?.start ?? "",
+  return: props.device?.return ?? "",
 });
 
 watch(
@@ -88,27 +89,32 @@ watch(
     preview.name = device?.name ?? "";
     preview.type = device?.type ?? 1;
     preview.status = device?.status ?? 1;
+
+    if (device) {
+      localDevice.id = device.id;
+      localDevice.name = device.name;
+      localDevice.type = device.type;
+      localDevice.status = device.status;
+      localDevice.start = device.start ?? "";
+      localDevice.return = device.return ?? "";
+    }
   },
   { immediate: true }
 );
 
-let originalStart: string | Date | undefined = undefined;
-let originalReturn: string | Date | undefined = undefined;
-
 watch(
   () => preview.status,
   (status) => {
-    if (!props.device) return;
+    if (!localDevice) return;
 
-    if (originalStart === undefined) originalStart = props.device.start;
-    if (originalReturn === undefined) originalReturn = props.device.return;
+    if (status === 3 && !localDevice.start) {
+      localDevice.start = props.device?.start || formateDateISO(Date.now());
+      localDevice.return = props.device?.return || "";
+    }
 
     if (status === 1 || status === 2) {
-      props.device.start = "";
-      props.device.return = "";
-    } else if (status === 3) {
-      props.device.start = originalStart;
-      props.device.return = originalReturn;
+      localDevice.start = "";
+      localDevice.return = "";
     }
   },
   { immediate: true }
