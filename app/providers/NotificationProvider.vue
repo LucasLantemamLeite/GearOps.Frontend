@@ -14,24 +14,5 @@
 </template>
 
 <script setup lang="ts">
-import { notification } from "~/shared/Notification";
-
-function getColorByType(type: string): string {
-  switch (type) {
-    case "Success":
-      return "#32D74A";
-
-    case "Error":
-      return "#E93626";
-
-    case "Warning":
-      return "#D7D731";
-
-    case "Info":
-      return "#2D73DD";
-
-    default:
-      return "#32D74A";
-  }
-}
+import { notification, getColorByType } from "~/shared/Notification";
 </script>
