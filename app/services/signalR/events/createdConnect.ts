@@ -1,11 +1,12 @@
-import type { HubConnection } from "@microsoft/signalr";
 import { Devices, orderByType } from "~/shared/Devices";
 import type { Device } from "~/types/Device";
+import { connection } from "../connectionHub";
 
-export function createdConnect(connection: HubConnection, take: number = 30) {
+export function createdConnect(take: number = 30) {
   connection.on("DeviceCreated", (device: Device) => {
     if (Devices.value.length < take) {
       Devices.value = [...Devices.value, device];
+
       orderByType();
     }
   });
