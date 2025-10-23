@@ -19,12 +19,28 @@
 
     <div class="flex flex-col gap-1 w-full">
       <label for="start">Inicio:</label>
-      <InputComponent :value="formateDateISO(device?.start)" name="start" id="start" type="datetime-local" class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white" />
+      <InputComponent
+        :style="preview.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
+        :value="formateDateISO(startDate)"
+        :disabled="preview.status !== 3"
+        name="start"
+        id="start"
+        type="datetime-local"
+        class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white"
+      />
     </div>
 
     <div class="flex flex-col gap-1 w-full">
       <label for="return">Retorno:</label>
-      <InputComponent :value="formateDateISO(device?.return)" name="return" id="return" type="datetime-local" class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white" />
+      <InputComponent
+        :style="preview.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
+        :value="formateDateISO(device?.return)"
+        :disabled="preview.status !== 3"
+        name="return"
+        id="return"
+        type="datetime-local"
+        class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white"
+      />
     </div>
 
     <div class="flex h-[5rem] justify-center items-center w-full gap-4 md:mb-4">
@@ -60,12 +76,40 @@ const props = defineProps<{
   closeModal: () => void;
 }>();
 
+const startDate = computed(() => {
+  if (!props.device && preview.status === 3) return Date.now();
+
+  return props.device?.start;
+});
+
 watch(
   () => props.device,
   (device) => {
     preview.name = device?.name ?? "";
     preview.type = device?.type ?? 1;
     preview.status = device?.status ?? 1;
+  },
+  { immediate: true }
+);
+
+let originalStart: string | Date | undefined = undefined;
+let originalReturn: string | Date | undefined = undefined;
+
+watch(
+  () => preview.status,
+  (status) => {
+    if (!props.device) return;
+
+    if (originalStart === undefined) originalStart = props.device.start;
+    if (originalReturn === undefined) originalReturn = props.device.return;
+
+    if (status === 1 || status === 2) {
+      props.device.start = "";
+      props.device.return = "";
+    } else if (status === 3) {
+      props.device.start = originalStart;
+      props.device.return = originalReturn;
+    }
   },
   { immediate: true }
 );
