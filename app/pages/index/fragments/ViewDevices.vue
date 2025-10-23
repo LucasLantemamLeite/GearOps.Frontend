@@ -11,41 +11,31 @@
     </div>
   </section>
 
-  <DeviceModelBlock :device="editForm.deviceEdit!" v-model="editForm.isEditing" />
+  <DeviceModal :device="editForm.deviceEdit!" v-model="editForm.isEditing" />
 </template>
 
 <script setup lang="ts">
-import { getDevicesService } from "~/services/requests/GetDevicesService";
+import { getDevices } from "~/services/requests/getDevices";
 import { Devices } from "~/shared/Devices";
-import { HubConnectionBuilder } from "@microsoft/signalr";
-import { createdConnect } from "~/services/signalR/CreatedConnect";
-import { deletedConnect } from "~/services/signalR/DeletedConnect";
-import { updatedConnect } from "~/services/signalR/UpdatedConnect";
-import { setNotification } from "~/shared/Notification";
 import type { Device } from "~/types/Device";
-import DeviceModelBlock from "./DeviceModal.vue";
+import { getColorByStatus, getImageByType } from "~/shared/Devices";
+import { createdConnect } from "~/services/signalR/events/createdConnect";
+import { updatedConnect } from "~/services/signalR/events/updatedConnect";
+import { deletedConnect } from "~/services/signalR/events/deletedConnect";
+import DeviceModal from "./DeviceModal.vue";
+
+onMounted(async () => {
+  getDevices();
+
+  createdConnect();
+  updatedConnect();
+  deletedConnect();
+});
 
 const editForm = reactive({
   deviceEdit: {},
   isEditing: false,
 } as { deviceEdit: Device; isEditing: boolean });
-
-onMounted(async () => {
-  await getDevicesService();
-
-  // Alterar para permitir o teste via ip privado ao rodar no docker-compose
-  var connection = new HubConnectionBuilder().withUrl("http://localhost:5059/v1/devicesHub").withAutomaticReconnect().build();
-
-  createdConnect(connection);
-  deletedConnect(connection);
-  updatedConnect(connection);
-
-  try {
-    connection.start();
-  } catch {
-    setNotification("Erro ao tentar se conectar no signalR, tempo real desativado.", 5, "Warning");
-  }
-});
 
 function openEdit(device: Device) {
   editForm.deviceEdit = device;
