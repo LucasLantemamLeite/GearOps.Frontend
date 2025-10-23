@@ -1,4 +1,4 @@
-export function formateDateISO(dateIso: string | Date | number | undefined | null): string {
+export function formateDateISO(dateIso: string | Date | number | undefined | null, locale: boolean = false): string {
   if (!dateIso) return "";
 
   const date = new Date(dateIso);
@@ -13,5 +13,5 @@ export function formateDateISO(dateIso: string | Date | number | undefined | nul
 
   const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
+  return !locale ? `${year}-${month}-${day}T${hours}:${minutes}` : `${day}/${month}/${year} : ${hours}:${minutes}`;
 }
