@@ -54,7 +54,7 @@ import { DeviceType } from "~/types/DeviceType";
 import { DeviceStatus } from "~/types/DeviceStatus";
 import { createDeviceService } from "~/services/requests/CreateDeviceService";
 import { updateDeviceService } from "~/services/requests/UpdateDeviceService";
-import { deleteDeviceService } from "~/services/requests/DeleteDevicesService";
+import { deleteDeviceService } from "~/services/requests/DeleteDeviceService";
 
 const props = defineProps<{
   modelValue: boolean;
