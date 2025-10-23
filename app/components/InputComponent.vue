@@ -1,16 +1,21 @@
 <template>
-  <input @input="updateModelValue" :maxlength="maxLenght" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue ?? ''" :placeholder="placeholder" autocomplete="off" />
+  <input @input="updateModelValue" :maxlength="maxLenght" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue" :placeholder="placeholder" autocomplete="off" />
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  name?: string;
-  id?: string;
-  modelValue?: string | number;
-  placeholder?: string;
-  type?: string;
-  maxLenght?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    name?: string;
+    id?: string;
+    modelValue?: string | number;
+    placeholder?: string;
+    type?: string;
+    maxLenght?: string;
+  }>(),
+  {
+    modelValue: "",
+  }
+);
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: string | number): void;
