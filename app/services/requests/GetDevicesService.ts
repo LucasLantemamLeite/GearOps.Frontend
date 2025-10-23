@@ -11,7 +11,7 @@ export async function getDevicesService(take: number = 30, page: number = 1) {
 
     setNotification(`${result.message}`, 5, "Success");
 
-    Devices.value = result.data;
+    if (result.data) Devices.value = result.data;
   } catch (err: any) {
     setNotification(String(err), 5, "Error");
   } finally {
