@@ -5,3 +5,41 @@ export const Devices = ref<Device[]>([]);
 export function orderByType() {
   Devices.value = Devices.value.sort((a, b) => a.type - b.type);
 }
+
+export function getColorByStatus(status: number): string {
+  switch (status) {
+    case 1:
+      return "#32D74A";
+
+    case 2:
+      return "#D73732";
+
+    case 3:
+      return "#D7D731";
+
+    default:
+      return "#32D74A";
+  }
+}
+
+export function getImageByType(type: number): string {
+  switch (type) {
+    case 1:
+      return "Forklift";
+
+    case 2:
+      return "Excavator";
+
+    case 3:
+      return "Crane";
+
+    case 4:
+      return "Bulldozer";
+
+    case 5:
+      return "Loader";
+
+    default:
+      return "Forklift";
+  }
+}
