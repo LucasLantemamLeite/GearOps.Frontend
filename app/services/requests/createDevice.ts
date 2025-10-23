@@ -1,8 +1,8 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
-import { apiRequestAsync } from "../base/ApiService";
+import { apiRequest } from "./api";
 import { setNotification } from "~/shared/Notification";
 
-export async function createDeviceService(e: Event, closeModal: () => void) {
+export async function createDevice(e: Event, closeModal: () => void) {
   e.preventDefault();
 
   loadingShow();
@@ -18,11 +18,11 @@ export async function createDeviceService(e: Event, closeModal: () => void) {
     type: Number(payload.type),
     status: Number(payload.status),
     start: payload.start ? new Date(payload.start + ":00").toISOString() : null,
-    return: payload.return === "string" ? new Date(payload.return + ":00").toISOString() : null,
+    return: payload.start ? new Date(payload.return + ":00").toISOString() : null,
   };
 
   try {
-    const result = await apiRequestAsync("/device", "POST", 30, dto);
+    const result = await apiRequest("/device", "POST", 30, dto);
 
     setNotification(`${result.message}`, 7, "Success");
 

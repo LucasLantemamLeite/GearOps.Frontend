@@ -1,8 +1,8 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { setNotification } from "~/shared/Notification";
-import { apiRequestAsync } from "../base/ApiService";
+import { apiRequest } from "./api";
 
-export async function updateDeviceService(e: Event, id: string, closeModel: () => void) {
+export async function updateDevice(e: Event, id: string, closeModel: () => void) {
   if (!id) setNotification("Falha ao capturar o id do dispositivo.", 7, "Info");
 
   e.preventDefault();
@@ -25,7 +25,7 @@ export async function updateDeviceService(e: Event, id: string, closeModel: () =
   };
 
   try {
-    const result = await apiRequestAsync("/device", "PUT", 30, dto);
+    const result = await apiRequest("/device", "PUT", 30, dto);
 
     setNotification(`${result.message}`, 7, "Success");
 

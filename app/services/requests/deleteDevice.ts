@@ -1,8 +1,8 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { setNotification } from "~/shared/Notification";
-import { apiRequestAsync } from "../base/ApiService";
+import { apiRequest } from "./api";
 
-export async function deleteDeviceService(id: string, closeModal: () => void) {
+export async function deleteDevice(id: string, closeModal: () => void) {
   if (!id) setNotification("Falha ao capturar o id do dispositivo.", 7, "Info");
 
   console.log(id);
@@ -12,7 +12,7 @@ export async function deleteDeviceService(id: string, closeModal: () => void) {
   const dto = { id: id };
 
   try {
-    const result = await apiRequestAsync("/device", "DELETE", 30, dto);
+    const result = await apiRequest("/device", "DELETE", 30, dto);
 
     setNotification(`${result.message}`, 7, "Success");
 
