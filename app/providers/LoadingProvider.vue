@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import { Loading } from "~/global/Loading";
+import { Loading } from "~/shared/Loading";
 </script>

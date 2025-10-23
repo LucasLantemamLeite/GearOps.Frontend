@@ -1,5 +1,5 @@
 import type { HubConnection } from "@microsoft/signalr";
-import { Devices, orderByType } from "~/global/Devices";
+import { Devices, orderByType } from "~/shared/Devices";
 import type { Device } from "~/types/Device";
 
 export function updatedConnect(connection: HubConnection) {

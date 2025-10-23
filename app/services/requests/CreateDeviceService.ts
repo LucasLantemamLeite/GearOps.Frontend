@@ -1,6 +1,6 @@
-import { loadingHide, loadingShow } from "~/global/Loading";
+import { loadingHide, loadingShow } from "~/shared/Loading";
 import { apiRequestAsync } from "../helpers/ApiService";
-import { setNotification } from "~/global/Notification";
+import { setNotification } from "~/shared/Notification";
 
 export async function createDeviceService(e: Event, closeModal: () => void) {
   e.preventDefault();

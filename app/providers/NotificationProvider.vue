@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { notification } from "~/global/Notification";
+import { notification } from "~/shared/Notification";
 
 function getColorByType(type: string): string {
   switch (type) {

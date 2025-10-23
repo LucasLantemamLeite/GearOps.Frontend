@@ -16,12 +16,12 @@
 
 <script setup lang="ts">
 import { getDevicesService } from "~/services/requests/GetDevicesService";
-import { Devices } from "~/global/Devices";
+import { Devices } from "~/shared/Devices";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { createdConnect } from "~/services/signalR/CreatedConnect";
 import { deletedConnect } from "~/services/signalR/DeletedConnect";
 import { updatedConnect } from "~/services/signalR/UpdatedConnect";
-import { setNotification } from "~/global/Notification";
+import { setNotification } from "~/shared/Notification";
 import type { Device } from "~/types/Device";
 import DeviceModelBlock from "./DeviceModelBlock.vue";
 

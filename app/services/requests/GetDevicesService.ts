@@ -1,7 +1,7 @@
-import { Devices } from "~/global/Devices";
+import { Devices } from "~/shared/Devices";
 import { apiRequestAsync } from "../helpers/ApiService";
-import { loadingHide, loadingShow } from "~/global/Loading";
-import { setNotification } from "~/global/Notification";
+import { loadingHide, loadingShow } from "~/shared/Loading";
+import { setNotification } from "~/shared/Notification";
 
 export async function getDevicesService(take: number = 30, page: number = 1) {
   loadingShow();

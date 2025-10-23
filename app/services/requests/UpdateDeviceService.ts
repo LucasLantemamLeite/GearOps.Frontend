@@ -1,5 +1,5 @@
-import { loadingHide, loadingShow } from "~/global/Loading";
-import { setNotification } from "~/global/Notification";
+import { loadingHide, loadingShow } from "~/shared/Loading";
+import { setNotification } from "~/shared/Notification";
 import { apiRequestAsync } from "../helpers/ApiService";
 
 export async function updateDeviceService(e: Event, id: string, closeModel: () => void) {
