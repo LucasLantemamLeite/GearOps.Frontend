@@ -1,4 +1,4 @@
-export function formateDateISO(dateIso: string | Date | undefined | null): string {
+export function formateDateISO(dateIso: string | Date | number | undefined | null): string {
   if (!dateIso) return "";
 
   const date = new Date(dateIso);
