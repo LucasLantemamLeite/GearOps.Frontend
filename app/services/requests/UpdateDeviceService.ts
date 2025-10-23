@@ -20,8 +20,8 @@ export async function updateDeviceService(e: Event, id: string, closeModel: () =
     ...payload,
     type: Number(payload.type),
     status: Number(payload.status),
-    start: typeof payload.start === "string" ? new Date(payload.start + ":00").toISOString() : null,
-    return: typeof payload.return === "string" ? new Date(payload.return + ":00").toISOString() : null,
+    start: payload.start ? new Date(payload.start + ":00").toISOString() : null,
+    return: payload.return ? new Date(payload.return + ":00").toISOString() : null,
   };
 
   try {
