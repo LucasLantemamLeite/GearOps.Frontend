@@ -1,31 +1,32 @@
 <template>
-  <form @submit.prevent="(e) => (device === null ? createDevice(e, closeModal) : updateDevice(e, localDevice.id, closeModal))" class="flex flex-col w-[90%] gap-4 items-center">
-    <DevicePreview :preview-device="preview" />
+  <form @submit.prevent="(e) => (device === null ? createDevice(e, closeModal) : updateDevice(e, localDevice.id, closeModal))" class="flex max-w-[35rem] flex-col w-[90%] gap-4 items-center">
+    <DevicePreview :preview-device="localDevice" />
 
     <div class="flex flex-col gap-1 w-full">
       <label for="name">Nome:</label>
-      <InputComponent max-lenght="20" name="name" id="name" v-model="preview.name" class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white" />
+      <InputComponent max-lenght="20" name="name" id="name" v-model="localDevice.name" class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white" />
     </div>
 
     <div class="flex flex-col gap-1 w-full">
       <label for="type">Tipo:</label>
-      <SelectComponent name="type" id="type" v-model="preview.type" :type="DeviceType" class="w-full text-[1.4rem] text-white outline-none p-4 border-none bg-[#272727] rounded-[0.9rem] shadow-md" />
+      <SelectComponent name="type" id="type" v-model="localDevice.type" :type="DeviceType" class="w-full text-[1.4rem] text-white outline-none p-4 border-none bg-[#272727] rounded-[0.9rem] shadow-md" />
     </div>
 
     <div class="flex flex-col gap-1 w-full">
       <label for="status">Status:</label>
-      <SelectComponent name="status" id="status" v-model="preview.status" :type="DeviceStatus" class="w-full text-[1.4rem] text-white outline-none p-4 border-none bg-[#272727] rounded-[0.9rem] shadow-md" />
+      <SelectComponent name="status" id="status" v-model="localDevice.status" :type="DeviceStatus" class="w-full text-[1.4rem] text-white outline-none p-4 border-none bg-[#272727] rounded-[0.9rem] shadow-md" />
     </div>
 
     <div class="flex flex-col gap-1 w-full">
       <label for="start">Início:</label>
       <InputComponent
-        :style="preview.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
+        :style="localDevice.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
         :value="formateDateISO(localDevice.start)"
-        :disabled="preview.status !== 3"
+        :disabled="localDevice.status !== 3"
         name="start"
         id="start"
         type="datetime-local"
+        @input="(e: Event) => localDevice.start = (e.target as HTMLInputElement).value"
         class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white"
       />
     </div>
@@ -33,12 +34,13 @@
     <div class="flex flex-col gap-1 w-full">
       <label for="return">Retorno:</label>
       <InputComponent
-        :style="preview.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
-        :value="formateDateISO(localDevice.return)"
-        :disabled="preview.status !== 3"
+        :style="localDevice.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
+        :value="formateDateISO(localDevice.return, false)"
+        :disabled="localDevice.status !== 3"
         name="return"
         id="return"
         type="datetime-local"
+        @input="(e: Event) => localDevice.return = (e.target as HTMLInputElement).value"
         class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white"
       />
     </div>
@@ -63,19 +65,13 @@ import { DeviceStatus } from "../../../types/DeviceStatus";
 import { deleteDevice } from "~/services/requests/deleteDevice";
 import { createDevice } from "~/services/requests/createDevice";
 import { updateDevice } from "~/services/requests/updateDevice";
-import { formateDateISO } from "~/utils/forms/formateDateISO";
+import { formateDateISO } from "~/utils/dates/formateDateISO";
 import { reactive, watch } from "vue";
 
 const props = defineProps<{
   device: Device | null;
   closeModal: () => void;
 }>();
-
-const preview = reactive({
-  name: "",
-  type: 1,
-  status: 1,
-});
 
 const localDevice = reactive<Device>({
   ...(props.device ?? ({} as Device)),
@@ -86,30 +82,23 @@ const localDevice = reactive<Device>({
 watch(
   () => props.device,
   (device) => {
-    preview.name = device?.name ?? "";
-    preview.type = device?.type ?? 1;
-    preview.status = device?.status ?? 1;
-
-    if (device) {
-      localDevice.id = device.id;
-      localDevice.name = device.name;
-      localDevice.type = device.type;
-      localDevice.status = device.status;
-      localDevice.start = device.start ?? "";
-      localDevice.return = device.return ?? "";
-    }
+    localDevice.name = device?.name ?? "";
+    localDevice.type = device?.type ?? 1;
+    localDevice.status = device?.status ?? 1;
+    localDevice.start = device?.start ?? "";
+    localDevice.return = device?.return ?? "";
   },
   { immediate: true }
 );
 
 watch(
-  () => preview.status,
+  () => localDevice.status,
   (status) => {
     if (!localDevice) return;
 
-    if (status === 3 && !localDevice.start) {
-      localDevice.start = props.device?.start || formateDateISO(Date.now());
-      localDevice.return = props.device?.return || "";
+    if (status === 3) {
+      localDevice.start = props.device?.start;
+      localDevice.return = props.device?.return;
     }
 
     if (status === 1 || status === 2) {
