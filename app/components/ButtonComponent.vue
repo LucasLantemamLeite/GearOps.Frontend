@@ -4,6 +4,4 @@
   </button>
 </template>
 
-<script setup lang="ts">
-defineProps<{}>();
-</script>
+<script setup lang="ts"></script>
