@@ -6,7 +6,7 @@ export const notification = reactive({
 
 let timer: any = null;
 
-export function setNotification(message: string, duration: number = 5, type: "Success" | "Error" | "Warning" | "Info") {
+export function setNotification(message: string, duration: number = 5, type: "Success" | "Error" | "Attention" | "Info") {
   if (timer) clearTimeout(timer);
 
   notification.message = message;
@@ -28,7 +28,7 @@ export function getColorByType(type: string): string {
     case "Error":
       return "#E93626";
 
-    case "Warning":
+    case "Attention":
       return "#D7D731";
 
     case "Info":
