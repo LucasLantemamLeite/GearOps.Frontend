@@ -4,7 +4,7 @@
 
     <p class="p-2 mt-4 mb-2 text-center text-[1.4rem] border-2 rounded-[0.9rem] md:text-[1.6rem]">{{ previewDevice.name || "Nome da máquina" }}</p>
 
-    <ImageComponent :static-img="`/Images/${getImageByType(previewDevice.type)}.png`" :alt-img="`${getImageByType(previewDevice!.type)} Image`" class="mb-2 w-[8rem] mb-10 md:w-[10rem]" />
+    <ImageComponent :static-img="`/Images/${getImageByType(previewDevice.type)}.png`" :alt-img="`${getImageByType(previewDevice!.type)} Image`" class="w-[8rem] mb-4 md:w-[10rem]" />
 
     <div v-if="previewDevice.status === 3" class="flex w-[70%] items-center flex-col gap-2">
       <div class="flex items-center w-full justify-between gap-2">
