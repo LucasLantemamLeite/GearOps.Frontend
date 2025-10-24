@@ -29,7 +29,7 @@ export async function updateDevice(e: Event, id: string, closeModel: () => void)
 
   if (dto.start && dto.return) {
     if (dto.start > dto.return) {
-      setNotification("Data de retorno da manutenção não pode ser menor do que a data de inicio.", 7, "Warning");
+      setNotification("Data de retorno da manutenção não pode ser menor do que a data de inicio.", 7, "Attention");
       return;
     }
   }

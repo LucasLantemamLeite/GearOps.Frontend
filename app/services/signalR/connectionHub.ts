@@ -7,5 +7,5 @@ export var connection = new HubConnectionBuilder().withUrl("http://localhost:505
 try {
   connection.start();
 } catch {
-  setNotification("Erro ao tentar se conectar no signalR, tempo real desativado.", 5, "Warning");
+  setNotification("Erro ao tentar se conectar no signalR, tempo real desativado.", 5, "Attention");
 }
