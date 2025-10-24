@@ -1,23 +1,21 @@
 <template>
-  <section v-if="Devices.length != 0" class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] w-full h-auto items-center p-4 gap-4 mb-8 rounded-[0.9rem] border-2 border-[#272727] shadow-md md:grid-cols-[repeat(auto-fill,minmax(250px,1fr))] md:mb-[7rem]">
-    <div v-for="device in Devices" @click="openEdit(device)" class="flex relative w-full h-[22rem] items-center gap-4 flex-col bg-[#272727] text-[white] text-[1.5rem] rounded-[0.9rem] md:h-[25rem] shadow-md lg:cursor-pointer lg:transition-all lg:hover:translate-y-[3px]">
-      <div :style="{ backgroundColor: getColorByStatus(device.status) }" class="flex absolute w-full h-[1rem] top-0 rounded-t-[0.5rem]"></div>
+  <section v-if="Devices.length != 0" class="view_devices-background">
+    <div v-for="device in Devices" @click="openEdit(device)" class="view_devices-cards">
+      <div :style="{ backgroundColor: getColorByStatus(device.status) }" class="view_devices-status"></div>
 
-      <p class="p-2 mt-8 mb-2 text-center text-[1.4rem] border-2 rounded-[0.9rem] md:text-[1.6rem]">{{ device.name }}</p>
+      <p class="view_devices-name">{{ device.name }}</p>
 
-      <ImageComponent :static-img="`/Images/${getImageByType(device.type)}.png`" :alt-img="`${getImageByType(device.type)} Image`" class="mb-2 w-[8rem] md:w-[10rem]" />
+      <ImageComponent :static-img="`/Images/${getImageByType(device.type)}.png`" :alt-img="`${getImageByType(device.type)} Image`" class="view_devices-type" />
 
-      <div v-if="device.status === 3" class="flex w-[70%] items-center flex-col gap-2">
-        <div class="flex items-center w-full justify-between gap-2">
-          <ImageComponent static-img="/Icons/StartIcon.svg" class="w-[2rem]" />
-          <p class="text-white text-[1.2rem] md:text-[1.6rem]">{{ device.start ? formateDateISO(device.start, true) : "Não definido" }}</p>
+      <div v-if="device.status === 3" class="view_devices-dates-container">
+        <div>
+          <ImageComponent static-img="/Icons/StartIcon.svg" />
+          <p>{{ device.start ? formateDateISO(device.start, true) : "Não definido" }}</p>
         </div>
 
-        <hr class="h-[0.2rem] w-[120%] bg-[#92929250] border-none rounded-[0.9rem]" />
-
-        <div class="flex items-center w-full justify-between gap-2">
-          <ImageComponent static-img="/Icons/ReturnIcon.svg" class="w-[2rem]" />
-          <p class="text-white text-[1.2rem] md:text-[1.6rem]">{{ device.return ? formateDateISO(device.return, true) : "Não definido" }}</p>
+        <div>
+          <ImageComponent static-img="/Icons/ReturnIcon.svg" />
+          <p>{{ device.return ? formateDateISO(device.return, true) : "Não definido" }}</p>
         </div>
       </div>
     </div>
@@ -37,7 +35,7 @@ import { deletedConnect } from "~/services/signalR/events/deletedConnect";
 import DeviceModal from "./DeviceModal.vue";
 import { formateDateISO } from "~/utils/dates/formateDateISO";
 
-onMounted(async () => {
+onMounted(() => {
   getDevices();
 
   createdConnect();
@@ -55,3 +53,127 @@ function openEdit(device: Device) {
   editForm.isEditing = true;
 }
 </script>
+
+<style lang="scss">
+@use "../../../styles/globalVariables.scss" as Var;
+
+.view_devices {
+  &-background {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: Var.$default-border-radius;
+    border: Var.$default-border;
+    box-shadow: Var.$default-box-shadow;
+  }
+
+  &-cards {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    height: 22rem;
+    align-items: center;
+    background-color: Var.$primary-dark-color;
+    border-radius: Var.$default-border-radius;
+    box-shadow: Var.$default-box-shadow;
+  }
+
+  &-status {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 1rem;
+    top: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  &-type {
+    margin-bottom: 0.5rem;
+    width: 9rem;
+  }
+
+  &-name {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+    color: white;
+    border: 2px solid white;
+    border-radius: Var.$default-border-radius;
+  }
+
+  &-dates-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    & div {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+
+      & img {
+        width: 2rem;
+      }
+
+      & p {
+        font-size: 1.2rem;
+        color: white;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@use "../../../styles/globalVariables.scss" as Var;
+
+// Responsividades //
+
+.view_devices {
+  @media (min-width: 600px) {
+    &-background {
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      margin-bottom: 7rem;
+    }
+
+    &-cards {
+      height: 23rem;
+    }
+
+    &-type {
+      width: 10rem;
+    }
+
+    &-name {
+      font-size: 1.4rem;
+    }
+
+    &-dates-container div p {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &-cards {
+      transition: all 200ms ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(3px);
+      }
+    }
+  }
+}
+</style>
