@@ -46,15 +46,17 @@
     </div>
 
     <div class="flex h-[5rem] justify-center items-center w-full gap-4 md:mb-4">
-      <ButtonComponent type="submit" class="w-[70%] h-[80%] p-2 my-4 border-[#272727] border-2 rounded-[0.9rem] shadow-md active:shadow-sm active:translate-x-[2px] active:translate-y-[2px] transition-all lg:hover:bg-[#c9c9c9] lg:cursor-pointer">
+      <ButtonComponent type="submit" class="w-[70%] h-[80%] cursor-default p-2 my-4 border-[#272727] border-2 rounded-[0.9rem] shadow-md active:shadow-sm active:translate-x-[2px] active:translate-y-[2px] transition-all lg:hover:bg-[#c9c9c9] lg:cursor-pointer">
         {{ device === null ? "Criar" : "Atualizar" }}
       </ButtonComponent>
 
-      <div @click="deleteDevice(localDevice.id, closeModal)" v-if="device" class="flex h-[80%] p-1 border-2 rounded-[0.9rem] border-[#272727] lg:hover:cursor-pointer lg:transition-all lg:hover:bg-[#c9c9c9]">
+      <div @click="excludeOpen = true" v-if="device" class="flex h-[80%] p-1 border-2 rounded-[0.9rem] border-[#272727] lg:hover:cursor-pointer lg:transition-all lg:hover:bg-[#c9c9c9]">
         <ImageComponent static-img="/Icons/TrashIcon.svg" alt-img="Trash Icon" class="w-[3rem]" />
       </div>
     </div>
   </form>
+
+  <ConfirmExclude v-if="device" v-model="excludeOpen" :id="device.id" :name="device.name" :close-modal="closeModal" />
 </template>
 
 <script setup lang="ts">
@@ -62,11 +64,11 @@ import type { Device } from "~/types/Device";
 import DevicePreview from "./DevicePreview.vue";
 import { DeviceType } from "../../../types/DeviceType";
 import { DeviceStatus } from "../../../types/DeviceStatus";
-import { deleteDevice } from "~/services/requests/deleteDevice";
 import { createDevice } from "~/services/requests/createDevice";
 import { updateDevice } from "~/services/requests/updateDevice";
 import { formateDateISO } from "~/utils/dates/formateDateISO";
 import { reactive, watch } from "vue";
+import ConfirmExclude from "./ConfirmExclude.vue";
 
 const props = defineProps<{
   device: Device | null;
@@ -108,4 +110,6 @@ watch(
   },
   { immediate: true }
 );
+
+const excludeOpen = ref(false);
 </script>
