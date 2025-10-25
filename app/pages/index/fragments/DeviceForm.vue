@@ -1,23 +1,23 @@
 <template>
-  <form @submit.prevent="(e) => (device === null ? createDevice(e, closeModal) : updateDevice(e, localDevice.id, closeModal))" class="flex max-w-[35rem] flex-col w-[90%] gap-4 items-center">
+  <form @submit.prevent="(e) => (device === null ? createDevice(e, closeModal) : updateDevice(e, localDevice.id, closeModal))" class="device_form-background">
     <DevicePreview :preview-device="localDevice" />
 
-    <div class="flex flex-col gap-1 w-full">
+    <div class="device_form-div-label">
       <label for="name">Nome:</label>
-      <InputComponent :max-length="'20'" name="name" id="name" v-model="localDevice.name" class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white" />
+      <InputComponent :max-length="'20'" name="name" id="name" v-model="localDevice.name" />
     </div>
 
-    <div class="flex flex-col gap-1 w-full">
+    <div class="device_form-div-label">
       <label for="type">Tipo:</label>
-      <SelectComponent name="type" id="type" v-model="localDevice.type" :type="DeviceType" class="w-full text-[1.4rem] text-white outline-none p-4 border-none bg-[#272727] rounded-[0.9rem] shadow-md" />
+      <SelectComponent name="type" id="type" v-model="localDevice.type" :type="DeviceType" />
     </div>
 
-    <div class="flex flex-col gap-1 w-full">
+    <div class="device_form-div-label">
       <label for="status">Status:</label>
-      <SelectComponent name="status" id="status" v-model="localDevice.status" :type="DeviceStatus" class="w-full text-[1.4rem] text-white outline-none p-4 border-none bg-[#272727] rounded-[0.9rem] shadow-md" />
+      <SelectComponent name="status" id="status" v-model="localDevice.status" :type="DeviceStatus" />
     </div>
 
-    <div class="flex flex-col gap-1 w-full">
+    <div class="device_form-div-label">
       <label for="start">Início:</label>
       <InputComponent
         :style="localDevice.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
@@ -27,11 +27,10 @@
         id="start"
         type="datetime-local"
         @input="(e: Event) => localDevice.start = (e.target as HTMLInputElement).value"
-        class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white"
       />
     </div>
 
-    <div class="flex flex-col gap-1 w-full">
+    <div class="device_form-div-label">
       <label for="return">Retorno:</label>
       <InputComponent
         :style="localDevice.status !== 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: text; opacity: 1;'"
@@ -41,17 +40,16 @@
         id="return"
         type="datetime-local"
         @input="(e: Event) => localDevice.return = (e.target as HTMLInputElement).value"
-        class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white"
       />
     </div>
 
-    <div class="flex h-[5rem] justify-center items-center w-full gap-4 md:mb-4">
-      <ButtonComponent type="submit" class="w-[70%] h-[80%] cursor-default p-2 my-4 border-[#272727] border-2 rounded-[0.9rem] shadow-md active:shadow-sm active:translate-x-[2px] active:translate-y-[2px] transition-all lg:hover:bg-[#c9c9c9] lg:cursor-pointer">
+    <div class="device_form-control-container">
+      <ButtonComponent type="submit">
         {{ device === null ? "Criar" : "Atualizar" }}
       </ButtonComponent>
 
-      <div @click="excludeOpen = true" v-if="device" class="flex h-[80%] p-1 border-2 rounded-[0.9rem] border-[#272727] lg:hover:cursor-pointer lg:transition-all lg:hover:bg-[#c9c9c9]">
-        <ImageComponent static-img="/Icons/TrashIcon.svg" alt-img="Trash Icon" class="w-[3rem]" />
+      <div @click="excludeOpen = true" v-if="device" class="device_form-exclude">
+        <ImageComponent static-img="/Icons/TrashIcon.svg" alt-img="Trash Icon" />
       </div>
     </div>
   </form>
@@ -113,3 +111,121 @@ watch(
   { immediate: true }
 );
 </script>
+
+<style lang="scss">
+@use "../../../styles/globalVariables.scss" as Var;
+
+@mixin data-field {
+  width: 100%;
+  font-size: 1.4rem;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: Var.$default-border-radius;
+  box-shadow: Var.$default-box-shadow;
+  background-color: Var.$primary-dark-color;
+  outline: none;
+}
+
+.device_form {
+  &-background {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 90%;
+    max-width: 35rem;
+    align-items: center;
+  }
+
+  &-div-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+
+    & input {
+      @include data-field();
+
+      &::selection {
+        color: Var.$primary-dark-color;
+        background-color: white;
+      }
+    }
+
+    & select {
+      @include data-field();
+    }
+  }
+
+  &-control-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    height: 5rem;
+    justify-content: center;
+    align-items: center;
+
+    & button {
+      padding: 0.5rem;
+      margin: 2rem 0 2rem 0;
+      width: 70%;
+      height: 80%;
+      border: Var.$default-border;
+      border-radius: Var.$default-border-radius;
+      box-shadow: Var.$default-box-shadow;
+      cursor: default;
+    }
+  }
+
+  &-exclude {
+    display: flex;
+    height: 80%;
+    padding: 0.25rem;
+    border: Var.$default-border;
+    border-radius: Var.$default-border-radius;
+
+    & img {
+      width: 3rem;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@use "../../../styles/globalVariables.scss" as Var;
+
+// Responsividade //
+
+.device_form {
+  @media (min-width: 600px) {
+    &-control-container {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &-control-container button {
+      transition: all 100ms ease-in;
+
+      &:hover {
+        background-color: Var.$primary-hover-gray;
+        cursor: pointer;
+      }
+
+      &:active {
+        box-shadow: 0.1rem 0.1rem 0.1rem Var.$primary-dark-color;
+        transform: translate(2px, 2px);
+      }
+    }
+
+    &-exclude {
+      transition: all 100ms ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: Var.$primary-hover-gray;
+      }
+    }
+  }
+}
+</style>
