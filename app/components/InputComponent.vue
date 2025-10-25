@@ -1,5 +1,5 @@
 <template>
-  <input @input="updateModelValue" :maxlength="maxLenght" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue" :placeholder="placeholder" autocomplete="off" />
+  <input @input="updateModelValue" :maxlength="maxLength" v-bind="$attrs" :type="type" :name="name" :id="id" :value="modelValue" :placeholder="placeholder" autocomplete="off" />
 </template>
 
 <script setup lang="ts">
@@ -10,7 +10,7 @@ const props = withDefaults(
     modelValue?: string | number;
     placeholder?: string;
     type?: string;
-    maxLenght?: string;
+    maxLength?: string;
   }>(),
   {
     modelValue: "",
@@ -26,7 +26,9 @@ function updateModelValue(e: Event) {
   let value: string | number = target.value;
 
   if (props.type === "number") value = Number(value);
+  else if (props.maxLength) value = (value as string).slice(0, Number(props.maxLength));
 
+  target.value = value as string;
   emit("update:modelValue", value);
 }
 </script>

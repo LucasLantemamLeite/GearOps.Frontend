@@ -4,7 +4,7 @@
 
     <div class="flex flex-col gap-1 w-full">
       <label for="name">Nome:</label>
-      <InputComponent max-lenght="20" name="name" id="name" v-model="localDevice.name" class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white" />
+      <InputComponent :max-length="'20'" name="name" id="name" v-model="localDevice.name" class="w-full text-[1.4rem] border-none text-white bg-[#272727] outline-none p-4 rounded-[0.9rem] shadow-md selection:text-[#272727] selection:bg-white" />
     </div>
 
     <div class="flex flex-col gap-1 w-full">
@@ -75,6 +75,8 @@ const props = defineProps<{
   closeModal: () => void;
 }>();
 
+const excludeOpen = ref(false);
+
 const localDevice = reactive<Device>({
   ...(props.device ?? ({} as Device)),
   start: props.device?.start ?? "",
@@ -110,6 +112,4 @@ watch(
   },
   { immediate: true }
 );
-
-const excludeOpen = ref(false);
 </script>
