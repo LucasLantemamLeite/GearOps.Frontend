@@ -1,22 +1,20 @@
 <template>
-  <div class="flex relative w-[80%] h-[20rem] flex-col items-center p-4 mb-2 bg-[#272727] text-[white] text-[1.5rem] rounded-[0.9rem] shadow-md md:h-[24rem]">
-    <div :style="{ backgroundColor: getColorByStatus(previewDevice.status) }" class="flex absolute w-full h-[1rem] top-0 rounded-t-[0.5rem]"></div>
+  <div class="device_preview-box">
+    <div :style="{ backgroundColor: getColorByStatus(previewDevice.status) }" class="device_preview-status"></div>
 
-    <p class="p-2 mt-4 mb-2 text-center text-[1.4rem] border-2 rounded-[0.9rem] md:text-[1.6rem]">{{ previewDevice.name || "Nome da máquina" }}</p>
+    <p class="device_preview-name">{{ previewDevice.name || "Nome da máquina" }}</p>
 
-    <ImageComponent :static-img="`/Images/${getImageByType(previewDevice.type)}.png`" :alt-img="`${getImageByType(previewDevice!.type)} Image`" class="w-[8rem] mb-4 md:w-[10rem]" />
+    <ImageComponent :static-img="`/Images/${getImageByType(previewDevice.type)}.png`" :alt-img="`${getImageByType(previewDevice!.type)} Image`" class="device_preview-type" />
 
-    <div v-if="previewDevice.status === 3" class="flex w-[70%] items-center flex-col gap-2">
-      <div class="flex items-center w-full justify-between gap-2">
-        <ImageComponent static-img="/Icons/StartIcon.svg" class="w-[2rem]" />
-        <p class="text-white text-[1.2rem] md:text-[1.6rem]">{{ previewDevice.start ? formateDateISO(previewDevice.start, true) : "Não definido" }}</p>
+    <div v-if="previewDevice.status === 3" class="device_preview-dates-container">
+      <div>
+        <ImageComponent static-img="/Icons/StartIcon.svg" />
+        <p>{{ previewDevice.start ? formateDateISO(previewDevice.start, true) : "Não definido" }}</p>
       </div>
 
-      <hr class="h-[0.2rem] w-[120%] bg-[#92929250] border-none rounded-[0.9rem]" />
-
       <div class="flex items-center w-full justify-between gap-2">
-        <ImageComponent static-img="/Icons/ReturnIcon.svg" class="w-[2rem]" />
-        <p class="text-white text-[1.2rem] md:text-[1.6rem]">{{ previewDevice.return ? formateDateISO(previewDevice.return, true) : "Não definido" }}</p>
+        <ImageComponent static-img="/Icons/ReturnIcon.svg" />
+        <p>{{ previewDevice.return ? formateDateISO(previewDevice.return, true) : "Não definido" }}</p>
       </div>
     </div>
   </div>
@@ -30,3 +28,96 @@ defineProps<{
   previewDevice: { name: string; type: number; status: number; start?: string | Date | null; return?: string | Date | null };
 }>();
 </script>
+
+<style lang="scss">
+@use "../../../styles/globalVariables.scss" as Var;
+
+.device_preview {
+  &-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    margin-bottom: 0.5rem;
+    width: 80%;
+    height: 22rem;
+    color: white;
+    font-size: 1.4rem;
+    align-items: center;
+    background-color: Var.$primary-dark-color;
+    border-radius: Var.$default-border-radius;
+    box-shadow: Var.$default-box-shadow;
+  }
+
+  &-status {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 1rem;
+    top: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  &-name {
+    padding: 0.5rem;
+    font-size: 1.4rem;
+    border: 2px solid white;
+    border-radius: Var.$default-border-radius;
+  }
+
+  &-type {
+    width: 9rem;
+  }
+
+  &-dates-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    & div {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+
+      & img {
+        width: 2rem;
+      }
+
+      & p {
+        font-size: 1.2rem;
+        color: white;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@use "../../../styles/globalVariables.scss" as Var;
+
+// Responsividade //
+
+.device_preview {
+  @media (min-width: 600px) {
+    &-box {
+      height: 24rem;
+    }
+
+    &-name {
+      font-size: 1.6rem;
+    }
+
+    &-type {
+      width: 10rem;
+    }
+
+    &-dates-container div p {
+      font-size: 1.4rem;
+    }
+  }
+}
+</style>
