@@ -1,4 +1,4 @@
-import { Devices, orderByType } from "~/shared/Devices";
+import { Devices } from "~/shared/Devices";
 import type { Device } from "~/types/Device";
 import { connection } from "../connectionHub";
 
@@ -11,7 +11,5 @@ export function updatedConnect() {
 
       Devices.value = [...Devices.value];
     }
-
-    orderByType();
   });
 }

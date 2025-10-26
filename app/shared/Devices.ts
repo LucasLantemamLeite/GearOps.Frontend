@@ -2,9 +2,10 @@ import type { Device } from "~/types/Device";
 
 export const Devices = ref<Device[]>([]);
 
-export function orderByType() {
-  Devices.value = Devices.value.sort((a, b) => a.type - b.type);
-}
+export const Pages = reactive({
+  Count: 0,
+  Current: 0,
+});
 
 export function getColorByStatus(status: number): string {
   switch (status) {
