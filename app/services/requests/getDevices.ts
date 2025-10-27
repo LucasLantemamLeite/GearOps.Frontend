@@ -1,7 +1,8 @@
-import { Devices, Pages } from "~/shared/Devices";
+import { Devices } from "~/shared/Devices";
 import { apiRequest } from "./api";
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { setNotification } from "~/shared/Notification";
+import { Pages } from "~/shared/Pages";
 
 export async function getDevices(page: number = 1) {
   loadingShow();

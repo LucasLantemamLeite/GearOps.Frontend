@@ -1,7 +1,7 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { setNotification } from "~/shared/Notification";
 import { apiRequest } from "./api";
-import { Pages } from "~/shared/Devices";
+import { Pages } from "~/shared/Pages";
 
 export async function deleteDevice(id: string, closeModal: () => void) {
   if (!id) setNotification("Falha ao capturar o id do dispositivo.", 7, "Info");

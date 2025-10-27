@@ -1,7 +1,7 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { apiRequest } from "./api";
 import { setNotification } from "~/shared/Notification";
-import { Pages } from "~/shared/Devices";
+import { Pages } from "~/shared/Pages";
 
 export async function getPages(current?: number) {
   loadingShow();
