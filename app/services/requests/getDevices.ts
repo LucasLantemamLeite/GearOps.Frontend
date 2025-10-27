@@ -2,13 +2,12 @@ import { Devices } from "~/shared/Devices";
 import { apiRequest } from "./api";
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { setNotification } from "~/shared/Notification";
-import { Pages } from "~/shared/Pages";
 
-export async function getDevices(page: number = 1) {
+export async function getDevices() {
   loadingShow();
 
   try {
-    const result = await apiRequest(`/device/${Pages.Take}/${page}`, "GET", 15);
+    const result = await apiRequest(`/device`, "GET", 30);
 
     if (!result.data) setNotification(`${result.message}`, 5, "Success");
 

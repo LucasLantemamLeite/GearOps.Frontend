@@ -1,7 +1,6 @@
 import { loadingHide, loadingShow } from "~/shared/Loading";
 import { apiRequest } from "./api";
 import { setNotification } from "~/shared/Notification";
-import { Pages } from "~/shared/Pages";
 
 export async function createDevice(e: Event, closeModal: () => void) {
   e.preventDefault();
@@ -35,7 +34,7 @@ export async function createDevice(e: Event, closeModal: () => void) {
   loadingShow();
 
   try {
-    const result = await apiRequest(`/device/${Pages.Take}`, "POST", 30, dto);
+    const result = await apiRequest(`/device`, "POST", 30, dto);
 
     if (dto.start && !dto.return) {
       setNotification(`${result.message} Porém só foi definido data de inicio da manutenção.`, 10, "Info");
