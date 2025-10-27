@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { getDevices } from "~/services/requests/getDevices";
-import { Devices, Pages } from "~/shared/Devices";
+import { Devices } from "~/shared/Devices";
 import type { Device } from "~/types/Device";
 import { getColorByStatus, getImageByType } from "~/shared/Devices";
 import { createdConnect } from "~/services/signalR/events/createdConnect";
@@ -37,6 +37,7 @@ import { deletedConnect } from "~/services/signalR/events/deletedConnect";
 import DeviceModal from "./DeviceModal.vue";
 import { formateDateISO } from "~/utils/dates/formateDateISO";
 import Pagination from "./Pagination.vue";
+import { Pages } from "~/shared/Pages";
 
 onMounted(() => {
   createdConnect();

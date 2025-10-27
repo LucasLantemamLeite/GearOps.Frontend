@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { getPages } from "~/services/requests/getPages";
-import { Pages } from "~/shared/Devices";
+import { Pages } from "~/shared/Pages";
 
 const middlePages = computed(() => {
   const total = Pages.Count;
