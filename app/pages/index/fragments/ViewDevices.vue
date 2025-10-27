@@ -114,7 +114,7 @@ watch(
   &-name {
     padding: 0.5rem;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-bottom: 0.5rem;
     margin-top: 2rem;
     color: white;

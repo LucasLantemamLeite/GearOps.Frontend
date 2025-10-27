@@ -52,11 +52,14 @@ const isCreating = ref(false);
     & input {
       height: 100%;
       width: 100%;
+      border: 2px solid Var.$primary-dark-color;
+      font-size: 1.2rem;
+      font-weight: inherit;
+      font-family: inherit;
       padding: 1rem;
       border-radius: Var.$default-border-radius;
-      border: 2px solid Var.$primary-dark-color;
-      outline: none;
       box-shadow: Var.$default-box-shadow;
+      outline: none;
 
       &::selection {
         color: white;
@@ -115,6 +118,10 @@ const isCreating = ref(false);
 
     &-search-div {
       width: 30rem;
+
+      & input {
+        font-size: 1.4rem;
+      }
     }
   }
 

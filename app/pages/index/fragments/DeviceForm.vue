@@ -122,6 +122,7 @@ watch(
   padding: 1rem;
   border: none;
   border-radius: Var.$default-border-radius;
+  font-weight: inherit;
   box-shadow: Var.$default-box-shadow;
   background-color: Var.$primary-dark-color;
   outline: none;
@@ -172,6 +173,7 @@ watch(
       height: 80%;
       border: Var.$default-border;
       border-radius: Var.$default-border-radius;
+      font-weight: inherit;
       box-shadow: Var.$default-box-shadow;
       cursor: default;
     }
