@@ -36,10 +36,10 @@ import { updatedConnect } from "~/services/signalR/events/updatedConnect";
 import { deletedConnect } from "~/services/signalR/events/deletedConnect";
 import DeviceModal from "./DeviceModal.vue";
 import { formateDateISO } from "~/utils/dates/formateDateISO";
-import Pagination from "./Pagination.vue";
-import { Pages } from "~/shared/Pages";
 
 onMounted(() => {
+  getDevices();
+
   createdConnect();
   updatedConnect();
   deletedConnect();
@@ -54,14 +54,6 @@ function openEdit(device: Device) {
   editForm.deviceEdit = device;
   editForm.isEditing = true;
 }
-
-watch(
-  () => Pages.Current,
-  (current) => {
-    getDevices(current || 1);
-  },
-  { immediate: true }
-);
 </script>
 
 <style lang="scss">
@@ -78,7 +70,6 @@ watch(
     align-items: center;
     padding: 1rem;
     margin-bottom: 2rem;
-    padding-bottom: 6rem;
     border-radius: Var.$default-border-radius;
     border: Var.$default-border;
     box-shadow: Var.$default-box-shadow;
