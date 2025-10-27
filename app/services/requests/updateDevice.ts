@@ -23,13 +23,13 @@ export async function updateDevice(e: Event, id: string, closeModel: () => void)
   };
 
   if (!payload.name) {
-    setNotification("O nome do dispositivo é obrigatório.", 7, "Error");
+    setNotification("O nome do dispositivo é obrigatório.", 4, "Error");
     return;
   }
 
   if (dto.start && dto.return) {
     if (dto.start > dto.return) {
-      setNotification("Data de retorno da manutenção não pode ser menor do que a data de inicio.", 7, "Attention");
+      setNotification("Data de retorno da manutenção não pode ser menor do que a data de inicio.", 4, "Attention");
       return;
     }
   }
@@ -40,14 +40,14 @@ export async function updateDevice(e: Event, id: string, closeModel: () => void)
     const result = await apiRequest("/device", "PUT", 30, dto);
 
     if (dto.start && !dto.return) {
-      setNotification(`${result.message} Porém só foi definido data de inicio da manutenção.`, 10, "Info");
+      setNotification(`${result.message} Porém só foi definido data de inicio da manutenção.`, 4, "Info");
     } else if (!dto.start && dto.return) {
-      setNotification(`${result.message} Porém só foi definido a data de retorno da manutenção.`, 10, "Info");
-    } else setNotification(`${result.message}`, 7, "Success");
+      setNotification(`${result.message} Porém só foi definido a data de retorno da manutenção.`, 4, "Info");
+    } else setNotification(`${result.message}`, 4, "Success");
 
     closeModel();
   } catch (err: unknown) {
-    setNotification(String(err), 7, "Error");
+    setNotification(String(err), 4, "Error");
   } finally {
     loadingHide();
   }
