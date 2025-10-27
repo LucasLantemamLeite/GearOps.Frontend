@@ -169,10 +169,12 @@ watch(
     & button {
       padding: 0.5rem;
       margin: 2rem 0 2rem 0;
+      font-size: 1.4rem;
       width: 70%;
       height: 80%;
       border: Var.$default-border;
       border-radius: Var.$default-border-radius;
+      background-color: white;
       font-weight: inherit;
       box-shadow: Var.$default-box-shadow;
       cursor: default;

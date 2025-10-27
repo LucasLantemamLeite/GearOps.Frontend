@@ -97,7 +97,9 @@ watch(
     }
 
     & p {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
+      font-family: inherit;
+      font-weight: inherit;
       text-align: center;
     }
   }
@@ -108,9 +110,11 @@ watch(
     align-items: center;
 
     & button {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       padding: 0.5rem;
       border: Var.$default-border;
+      font-weight: inherit;
+      font-family: inherit;
       border-radius: Var.$default-border-radius;
       box-shadow: Var.$default-box-shadow;
       transition: all 200ms ease-in;
@@ -139,14 +143,6 @@ watch(
       & img {
         width: 5rem;
       }
-
-      & p {
-        font-size: 1.4rem;
-      }
-    }
-
-    &-buttons-container button {
-      font-size: 1.4rem;
     }
   }
 
