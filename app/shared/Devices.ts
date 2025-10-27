@@ -2,6 +2,8 @@ import type { Device } from "~/types/Device";
 
 export const Devices = ref<Device[]>([]);
 
+export const Filter = ref("");
+
 export function getColorByStatus(status: number): string {
   switch (status) {
     case 1:

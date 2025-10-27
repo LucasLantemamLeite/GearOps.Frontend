@@ -1,7 +1,9 @@
 <template>
   <section class="control-background">
     <div class="control-search-div">
-      <InputComponent placeholder="Buscar..." />
+      <InputComponent placeholder="Buscar..." @keyup.enter="onEnter" :value="Filter" />
+
+      <ImageComponent v-if="Filter != ''" static-img="/Icons/ClearIcon.svg" alt-img="Clear Icon" class="control-clear-icon" @click="Filter = ''" />
 
       <div class="control-icon-wrapper">
         <ImageComponent static-img="/Icons/SearchIcon.svg" alt-img="Search Icon" />
@@ -23,7 +25,22 @@
 </template>
 
 <script setup lang="ts">
+import { getSearch } from "~/services/requests/getSearch";
 import DeviceModelBlock from "./DeviceModal.vue";
+import { Filter } from "~/shared/Devices";
+
+function onEnter(e: KeyboardEvent) {
+  const target = e.target as HTMLInputElement;
+  Filter.value = target.value;
+}
+
+watch(
+  () => Filter.value,
+  () => {
+    getSearch();
+  },
+  { immediate: true }
+);
 
 const isCreating = ref(false);
 </script>
@@ -66,6 +83,14 @@ const isCreating = ref(false);
         background-color: Var.$primary-dark-color;
       }
     }
+  }
+
+  &-clear-icon {
+    display: flex;
+    position: absolute;
+    right: 4rem;
+    align-items: center;
+    width: 2rem;
   }
 
   &-icon-wrapper {
@@ -132,6 +157,12 @@ const isCreating = ref(false);
 
     &-search-div {
       width: 40rem;
+    }
+
+    &-clear-icon {
+      width: 2rem;
+      right: 5.5rem;
+      cursor: pointer;
     }
 
     &-icon-wrapper img {
