@@ -19,8 +19,6 @@
         </div>
       </div>
     </div>
-
-    <Pagination />
   </section>
 
   <DeviceModal :device="editForm.deviceEdit!" v-model="editForm.isEditing" />
