@@ -88,7 +88,7 @@ watch(
 
   &-message-warning {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     justify-content: center;
     align-items: center;
 
