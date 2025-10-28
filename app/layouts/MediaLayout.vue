@@ -11,6 +11,10 @@
     <a href="https://github.com/LucasLantemamLeite" target="_blank">
       <ImageComponent static-img="/Icons/GitHubIcon.svg" alt-img="GitHub Icon" class="media_layout-icons" />
     </a>
+
+    <NuxtLink to="/credits" class="media_layout-link-credits">
+      <p>Créditos</p>
+    </NuxtLink>
   </section>
 </template>
 
@@ -39,6 +43,14 @@
     width: 3rem;
     cursor: default;
   }
+
+  &-link-credits {
+    position: absolute;
+    font-size: 1.2rem;
+    color: white;
+    right: 2rem;
+    z-index: 1;
+  }
 }
 </style>
 
@@ -57,6 +69,10 @@
     &-icons {
       width: 4rem;
     }
+
+    &-link-credits {
+      font-size: 1.4rem;
+    }
   }
 
   @media (min-width: 1024px) {
@@ -64,6 +80,7 @@
       width: 4.5rem;
       transition: all 100ms ease-in;
       cursor: pointer;
+
       &:hover {
         transform: translateY(-3px);
       }
