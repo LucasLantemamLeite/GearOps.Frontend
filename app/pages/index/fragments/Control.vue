@@ -10,14 +10,8 @@
       </div>
     </div>
 
-    <div class="control-icons-container">
-      <div>
-        <ImageComponent static-img="/Icons/FilterIcon.svg" alt-img="Filter Icon" />
-      </div>
-
-      <div @click="isCreating = true">
-        <ImageComponent static-img="/Icons/AddIcon.svg" alt-img="Add Icon" />
-      </div>
+    <div @click="isCreating = true" class="control-icon-background">
+      <ImageComponent static-img="/Icons/AddIcon.svg" alt-img="Add Icon" />
     </div>
   </section>
 
@@ -108,23 +102,17 @@ const isCreating = ref(false);
     }
   }
 
-  &-icons-container {
+  &-icon-background {
     display: flex;
-    gap: 1rem;
     height: 100%;
+    align-items: center;
+    border: Var.$default-border;
+    padding: 0.5rem;
+    border-radius: Var.$default-border-radius;
+    box-shadow: Var.$default-box-shadow;
 
-    & div {
-      display: flex;
-      height: 100%;
-      align-items: center;
-      border: Var.$default-border;
-      padding: 0.5rem;
-      border-radius: Var.$default-border-radius;
-      box-shadow: Var.$default-box-shadow;
-
-      & img {
-        width: 2rem;
-      }
+    & img {
+      width: 2rem;
     }
   }
 }
@@ -169,7 +157,7 @@ const isCreating = ref(false);
       width: 3rem;
     }
 
-    &-icons-container div {
+    &-icon-background {
       cursor: pointer;
       transition: all 100ms ease;
 
