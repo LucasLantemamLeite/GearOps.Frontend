@@ -1,6 +1,6 @@
 <template>
-  <section v-if="Devices.length != 0" class="view_devices-background">
-    <div v-for="device in Devices" @click="openEdit(device)" class="view_devices-cards">
+  <section v-if="filteredDevices.length != 0" class="view_devices-background">
+    <div v-for="device in filteredDevices" @click="openEdit(device)" class="view_devices-cards">
       <div :style="{ backgroundColor: getColorByStatus(device.status) }" class="view_devices-status"></div>
 
       <p class="view_devices-name">{{ device.name }}</p>
@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { getDevices } from "~/services/requests/getDevices";
-import { Devices } from "~/shared/Devices";
+import { Devices, Filter } from "~/shared/Devices";
 import type { Device } from "~/types/Device";
 import { getColorByStatus, getImageByType } from "~/shared/Devices";
 import { createdConnect } from "~/services/signalR/events/createdConnect";
@@ -47,6 +47,8 @@ const editForm = reactive({
   deviceEdit: {},
   isEditing: false,
 } as { deviceEdit: Device; isEditing: boolean });
+
+const filteredDevices = computed(() => Devices.value.filter((device) => device.name.toLowerCase().includes(Filter.value.toLowerCase())));
 
 function openEdit(device: Device) {
   editForm.deviceEdit = device;

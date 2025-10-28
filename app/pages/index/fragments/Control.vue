@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { getSearch } from "~/services/requests/getSearch";
 import DeviceModelBlock from "./DeviceModal.vue";
 import { Filter } from "~/shared/Devices";
 
@@ -27,14 +26,6 @@ function onEnter(e: KeyboardEvent) {
   const target = e.target as HTMLInputElement;
   Filter.value = target.value;
 }
-
-watch(
-  () => Filter.value,
-  () => {
-    getSearch();
-  },
-  { immediate: true }
-);
 
 const isCreating = ref(false);
 </script>
